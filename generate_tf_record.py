@@ -26,18 +26,28 @@ from collections import namedtuple
 
 # TO-DO replace this with label map
 def class_text_to_int(row_label):
-    if row_label == 'color_wok':
+    if row_label == 'angle':
         return 1
-    if row_label == 'craft_wok':
+    if row_label == 'dot':
         return 2
-    if row_label == 'craft_wokw':
-        return 2
-    if row_label == 'craf_wok':
-        return 2
-    if row_label == 'cup':
+    if row_label == 'line':
         return 3
-    if row_label == 'salad':
+    if row_label == 'square':
         return 4
+    if row_label == 'z':
+        return 5
+    if row_label == 'color_wok':
+        return 6
+    if row_label == 'craft_wok':
+        return 7
+    if row_label == 'craft_wokw':
+        return 7
+    if row_label == 'craf_wok':
+        return 7
+    if row_label == 'cup':
+        return 8
+    if row_label == 'salad':
+        return 9
     else:
         None
 
@@ -93,7 +103,7 @@ def create_tf_example(group, path):
 from sklearn.model_selection import train_test_split
 
 def write_data_to_tf(examples, filename, path):
-    #(examples, filename, path) = (train_data, 'goods_train.record', path)
+    #(examples, filename, path) = (x_train, 'goods_train.record', path)
     writer = tf.python_io.TFRecordWriter(filename)
     grouped = split(examples, 'filename')
     for group in grouped:
@@ -107,11 +117,11 @@ def main(_):
     path = os.getcwd()#os.path.join(os.getcwd(), 'autorec_numbers')
     data = pd.read_csv('all_goods.csv')
     
-    x_train, x_test, _, _ = train_test_split(data, data['class'], test_size=0.33)    
+    x_train, x_test, _, _ = train_test_split(data, data['class'], test_size=0.33)  
+    print(x_test['class'].unique() ) 
     
     write_data_to_tf(x_train, 'goods_train.record', path)
     write_data_to_tf(x_test, 'goods_test.record', path)
-    
 
 if __name__ == '__main__':
     tf.app.run()

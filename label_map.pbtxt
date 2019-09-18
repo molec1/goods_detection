@@ -1,0 +1,36 @@
+item {
+  id: 1
+  name: "angle"
+}
+item {
+  id: 2
+  name: "dot"
+}
+item {
+  id: 3
+  name: "line"
+}
+item {
+  id: 4
+  name: "square"
+}
+item {
+  id: 5
+  name: "z"
+}
+item {
+  id: 6
+  name: "color_wok"
+}
+item {
+  id: 7
+  name: "craft_wok"
+}
+item {
+  id: 8
+  name: "cup"
+}
+item {
+  id: 9
+  name: "salad"
+}

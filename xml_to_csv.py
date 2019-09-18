@@ -10,7 +10,10 @@ def xml_to_csv(path, image_subfolder):
         tree = ET.parse(xml_file)
         root = tree.getroot()
         for member in root.findall('object'):
-            value = (os.path.join(image_subfolder, root.find('filename').text),
+            filename = os.path.join('data', image_subfolder, root.find('filename').text)
+            if root.find('filename').text[-4:].upper()!='.JPG':
+                filename = filename+'.JPG'
+            value = (filename,
                      int(root.find('size')[0].text),
                      int(root.find('size')[1].text),
                      member[0].text,
@@ -26,10 +29,10 @@ def xml_to_csv(path, image_subfolder):
 def main():
     column_name = ['filename', 'width', 'height', 'class', 'xmin', 'ymin', 'xmax', 'ymax']
     
-    train_folders = ['data\color_wok','data\craft_wok','data\cup','data\salad']
+    train_folders = ['angle','dot','line','square','z','color_wok','craft_wok','cup','salad','test_color_wok','test_craft_wok','test_cup','test_salad']
     xml_list = []
     for f in train_folders:
-        image_path = os.path.join(os.getcwd(), f)
+        image_path = os.path.join(os.getcwd(),'data', f)
         xml_list += (xml_to_csv(image_path, f))
     xml_df = pd.DataFrame(xml_list, columns=column_name)
     xml_df.to_csv('all_goods.csv', index=None)
