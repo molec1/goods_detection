@@ -12,9 +12,9 @@ from object_detection.utils import label_map_util
 from skimage import img_as_ubyte
 from object_detection.utils import visualization_utils as vis_util
 
-PATH_TO_CKPT = 'frozen_inference_graph.pb'
-PATH_TO_LABELS = 'labels.pbtxt'
-NUM_CLASSES = 4
+PATH_TO_CKPT = 'training_rcnn_resnet50/frozen_model/frozen_inference_graph.pb'
+PATH_TO_LABELS = 'label_map.pbtxt'
+NUM_CLASSES = 9
 
 
 def cut_and_resize_object_from_image(image_np, box, width, heigth):
@@ -104,10 +104,12 @@ def recognize_goods_in_dir(source_dir, cat_dir):
     files_for_work= list(set(files) - set(worked_files))
     
     rec_classes={}
-    rec_classes['cup']=0
-    rec_classes['color_wok']=0
-    rec_classes['craft_wok']=0
-    rec_classes['salad']=0
+    rec_classes['angle']=0
+    rec_classes['line']=0
+    rec_classes['z']=0
+    rec_classes['dot']=0
+    rec_classes['square']=0
+    
     rec_classes['unrec']=0
     
     for f in sorted(files_for_work):
@@ -146,6 +148,6 @@ def recognize_goods_in_dir(source_dir, cat_dir):
 
 
 #Каталог из которого будем брать изображения 
-source_dir = 'data/test_frame/cup' 
-cat_dir = 'data/recognized/cup'
+source_dir = 'data/test_frame/z' 
+cat_dir = 'data/recognized/z'
 recognize_goods_in_dir(source_dir, cat_dir)
